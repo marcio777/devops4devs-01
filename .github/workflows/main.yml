@@ -35,12 +35,21 @@ jobs:
     needs: [CI]
     runs-on: ubuntu-latest
     steps:
-      - name: Conectar com Kubernetes
-        run: echo "Configuração do Kubeconfig"
-      - name: "Executar o deploy "
-        run:  echo "Kubectl apply"
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
+      -  name: Setup Minikube
+         uses: azure/setup-minikube@v1
 
+      - name: Set Kubernetes context to Minikube
+        run: kubectl config use-context minikube
+
+      - name: Apply Kubernetes resources
+        run: |
+          kubectl apply -f ./k8s/deploy.yaml
+
+      - name: Check deployment status
+        run: kubectl get pods
 
         
 

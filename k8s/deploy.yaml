@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment   # Nome do deployment
-  namespace: nginx-frontend
+  name: carro-deployment   # Nome do deployment
+  namespace: dev
 spec:
   replicas: 2   # Número desejado de réplicas do frontend
   selector:
     matchLabels:
-      app: nginx
+      app: carro
   template:
     metadata:
       labels:
-        app: nginx
+        app: carro
     spec:
       containers:
-      - name: nginx
-        image: nginx:latest   # Imagem do Nginx a ser utilizada
+      - name: carro
+        image: marciohc/kubedev:latest   # Imagem do Nginx a ser utilizada
         ports:
         - containerPort: 80   # Porta onde o Nginx está servindo
