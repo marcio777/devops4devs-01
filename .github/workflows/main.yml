@@ -42,10 +42,6 @@ jobs:
         id: minikube
         uses: medyagh/setup-minikube@latest
 
-
-      -  name: Setup Minikube
-         uses: azure/setup-minikube@v1
-
       - name: Set Kubernetes context to Minikube
         run: kubectl config use-context minikube
 
