@@ -22,8 +22,8 @@ jobs:
         uses: docker/build-push-action@v5.3.0
       
         with:
-          context: ./src
-          file: ./src/Dockerfile
+          context: ./site
+          file: ./dockerfile
           push: true
           tags: |
             marciohc/kubedev:latest
