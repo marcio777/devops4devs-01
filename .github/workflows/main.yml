@@ -38,6 +38,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: start minikube
+        id: minikube
+        uses: medyagh/setup-minikube@latest
+
+
       -  name: Setup Minikube
          uses: azure/setup-minikube@v1
 
