@@ -47,7 +47,7 @@ jobs:
 
       - name: Apply Kubernetes resources
         run: |
-          kubectl apply -f ./k8s/deploy.yaml
+          kubectl apply -f devops4devs-01/k8s/deploy.yaml
 
       - name: Check deployment status
         run: kubectl get pods
