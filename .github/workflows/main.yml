@@ -26,8 +26,8 @@ jobs:
           file: ./src/Dockerfile
           push: true
           tags: |
-            fabricioveronez/devops4devs-news:latest
-            fabricioveronez/devops4devs-news:${{github.run_number}}
+            marciohc/kubedev:latest
+            marciohc/kubedev:${{github.run_number}}
       
         
 
