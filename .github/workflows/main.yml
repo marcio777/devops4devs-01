@@ -22,7 +22,7 @@ jobs:
         uses: docker/build-push-action@v5.3.0
       
         with:
-          context: ./site
+          context: devops4devs-01/site
           file: ./Dockerfile
           push: true
           tags: |
