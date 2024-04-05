@@ -23,7 +23,7 @@ jobs:
       
         with:
           context: ./site
-          file: ./dockerfile
+          file: ./Dockerfile
           push: true
           tags: |
             marciohc/kubedev:latest
