@@ -22,7 +22,7 @@ jobs:
       - name: Conectar com Kubernetes
         run: echo "Configuração do Kubeconfig"
       - name: "Executar o deploy "
-        run:  "Kubectl apply"
+        run:  echo "Kubectl apply"
 
 
 
