@@ -11,10 +11,15 @@ jobs:
   CI:
     runs-on: ubuntu-latest
     steps:
-      - name: Construção da Inagem Docker
-        run: echo "Docker Build"
-      - name: "Publicar a imagem Docker Hub"
+      - uses: actions/checkout@v4
+        name: Checkout do repositorio
+      - name: Construção da Imagem Docker
+        with:
+          context: ./src
+          file: devops4devs-01/src/Dockerfile
+      - name: "Publicar a Imagem no docker Hub"
         run: echo "Docker push"
+        
 
   CD:
     needs: [CI]
