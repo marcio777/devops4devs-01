@@ -18,3 +18,5 @@ spec:
         image: marciohc/kubedev:latest   # Imagem do Nginx a ser utilizada
         ports:
         - containerPort: 80   # Porta onde o Nginx está servindo
+
+        
