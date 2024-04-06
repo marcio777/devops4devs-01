@@ -34,28 +34,31 @@ jobs:
   CD:
     needs: [CI]
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: start minikube
-        id: minikube
-        uses: medyagh/setup-minikube@latest
+    - name: Install SSH client
+      run: sudo apt-get install -y openssh-client
 
-      - name: Set Kubernetes context to Minikube
-        run: kubectl config use-context minikube
+    - name: Set up SSH tunnel
+      uses: wei/ssh-tunnel@v2
+      with:
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        remote-user: ${{ secrets.MINIKUBE_USERNAME }}
+        remote-host: ${{ secrets.MINIKUBE_HOST }}
+        local-port: 12345
+        remote-port: 22
+        forward-agent: true
 
-      - name: Create namespace dev
-        run: kubectl create namespace dev
-        
+    - name: Apply Kubernetes resources
+      run: |
+        export KUBE_SSH_PORT=12345
+        kubectl apply -f k8s/deploy.yaml
 
-      - name: Apply Kubernetes resources
-        run: |
-          kubectl apply -f k8s/deploy.yaml
-
-      - name: Check deployment status
-        run: kubectl get pods
-
+    - name: Check deployment status
+      run: kubectl get pods
         
 
 
