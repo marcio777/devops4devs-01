@@ -35,7 +35,7 @@ jobs:
     needs: [CI]
     runs-on: ubuntu-latest
     
-    steps:
+      steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
@@ -44,22 +44,18 @@ jobs:
 
     - name: Set up SSH tunnel
       run: |
-        # Configuração do túnel SSH
-        ssh -N -L 12345:localhost:22 ${{ secrets.MINIKUBE_USERNAME }}@${{ secrets.MINIKUBE_HOST }} -i /path/to/your/private/key &
+        # Configuração do túnel SSH para o cluster Minikube
+        ssh -N -L 12345:192.168.58.2:8443 ${{ secrets.MINIKUBE_USERNAME }}@${{ secrets.MINIKUBE_HOST }} -i /home/marcio/.minikube/ca.key &
         # Espera um pouco para garantir que o túnel esteja estabelecido
         sleep 5
 
     - name: Apply Kubernetes resources
       run: |
+        # Configura o Kubernetes para usar a porta local do túnel SSH
         export KUBE_SSH_PORT=12345
         kubectl apply -f k8s/deploy.yaml
 
     - name: Check deployment status
       run: kubectl get pods
-        
 
 
-
-
-
-    
