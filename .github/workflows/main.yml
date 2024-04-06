@@ -45,6 +45,10 @@ jobs:
       - name: Set Kubernetes context to Minikube
         run: kubectl config use-context minikube
 
+      - name: Create namespace dev
+        run: kubectl create namespace dev
+        
+
       - name: Apply Kubernetes resources
         run: |
           kubectl apply -f k8s/deploy.yaml
