@@ -43,14 +43,11 @@ jobs:
       run: sudo apt-get install -y openssh-client
 
     - name: Set up SSH tunnel
-      uses: wei/ssh-tunnel@v2
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-        remote-user: ${{ secrets.MINIKUBE_USERNAME }}
-        remote-host: ${{ secrets.MINIKUBE_HOST }}
-        local-port: 12345
-        remote-port: 22
-        forward-agent: true
+      run: |
+        # Configuração do túnel SSH
+        ssh -N -L 12345:localhost:22 ${{ secrets.MINIKUBE_USERNAME }}@${{ secrets.MINIKUBE_HOST }} -i /path/to/your/private/key &
+        # Espera um pouco para garantir que o túnel esteja estabelecido
+        sleep 5
 
     - name: Apply Kubernetes resources
       run: |
