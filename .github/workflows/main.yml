@@ -36,27 +36,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Install SSH client
-        run: sudo apt-get install -y openssh-client
+    - name: Install SSH client
+      run: sudo apt-get install -y openssh-client
 
+    - name: Set up SSH tunnel
+      run: |
+        # SSH tunnel configuration for Minikube cluster
+        ssh -NL 12345:127.0.0.1:8001 ${{ secrets.MINIKUBE_USERNAME }}@${{ secrets.MINIKUBE_HOST }} -i /home/marcio/.minikube/ca.key
 
-      - name: Set up SSH tunnel
-        run: |
-              # SSH tunnel configuration for Minikube cluster
-              ssh -NL 12345:127.0.0.1:8001 ${{ secrets.MINIKUBE_USERNAME }}@${{ secrets.MINIKUBE_HOST }} -i /home/marcio/.minikube/ca.key
+    - name: Apply Kubernetes resources
+      run: |
+       # Export the SSH port for Kubernetes
+        export KUBE_SSH_PORT=12345
+        /full/path/to/kubectl apply -f k8s/deploy.yaml
 
-      - name: Apply Kubernetes resources
-        run: |
-              # Export the SSH port for Kubernetes
-                export KUBE_SSH_PORT=12345
-                /full/path/to/kubectl apply -f k8s/deploy.yaml
+    - name: Wait for deployment to be ready
+      run: |
+        /full/path/to/kubectl rollout status deployment/<deployment_name> --timeout=300s
 
-      - name: Wait for deployment to be ready
-        run: |
-              kubectl rollout status deployment/<deployment_name> --timeout=300s
+    - name: Check deployment status
+      run: kubectl get pods
 
-      - name: Check deployment status
-        run: kubectl get pods
