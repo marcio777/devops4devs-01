@@ -57,5 +57,3 @@ jobs:
 
     - name: Check deployment status
       run: kubectl get pods
-
-
