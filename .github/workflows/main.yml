@@ -49,7 +49,7 @@ jobs:
 
     - name: Apply Kubernetes resources
       run: |
-       # Export the SSH port for Kubernetes
+        # Export the SSH port for Kubernetes
         export KUBE_SSH_PORT=12345
         /full/path/to/kubectl apply -f k8s/deploy.yaml
 
